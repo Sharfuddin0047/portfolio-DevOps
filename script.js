@@ -23,9 +23,11 @@ document.getElementById("typing").textContent = letter
 if(letter.length === currentText.length){
 count++
 index = 0
+setTimeout(type,1000)
 }
-
-setTimeout(type,120)
+else{
+setTimeout(type,100)
+}
 
 }
 
