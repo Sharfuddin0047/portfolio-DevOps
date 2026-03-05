@@ -1,5 +1,3 @@
-// typing animation
-
 const text = [
 "Software Developer",
 "Backend Engineer",
@@ -18,9 +16,9 @@ count = 0
 }
 
 currentText = text[count]
-letter = currentText.slice(0,++index)
+letter = currentText.slice(0, ++index)
 
-document.querySelector(".typing").textContent = letter
+document.getElementById("typing").textContent = letter
 
 if(letter.length === currentText.length){
 count++
@@ -34,9 +32,6 @@ setTimeout(type,120)
 type()
 
 
-
 function showEmail(){
-
 document.getElementById("email").innerText="your-email@example.com"
-
 }
