@@ -13,14 +13,23 @@ scroll-behavior:smooth;
 --border:#1e293b;
 }
 
-body{
-background:
-radial-gradient(circle at 10% 20%, rgba(56,189,248,0.08), transparent 30%),
-radial-gradient(circle at 90% 80%, rgba(59,130,246,0.08), transparent 30%),
-#020617;
+body {
+  background:
+    linear-gradient(135deg, #0f172a, #1e293b, #3b82f6, #020617),
+    radial-gradient(circle at 10% 20%, rgba(56,189,248,0.25), transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(168,85,247,0.25), transparent 40%);
+  background-size: 300% 300%;
+  animation: gradientShift 25s ease infinite;
 
-color:#e2e8f0;
+  color: #e2e8f0;
 }
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 
 .container{
 width:90%;
@@ -199,19 +208,68 @@ grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:25px;
 }
 
-.skill-card{
-background:rgba(15,23,42,0.8);
-border:1px solid var(--border);
-padding:30px;
-border-radius:16px;
-transition:.35s;
+.skill-card {
+  background: rgba(15, 23, 42, 0.65);       /* softer transparency */
+  backdrop-filter: blur(12px);              /* stronger frosted glass look */
+  border: 1px solid var(--accent);          /* accent border */
+  padding: 40px 30px;
+  border-radius: 20px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.skill-card:hover{
-transform:translateY(-10px);
-border-color:var(--accent);
-box-shadow:0 10px 25px rgba(0,0,0,.5);
+.skill-card h3 {
+  font-size: 24px;
+  margin-bottom: 18px;
+  color: var(--accent);
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(56,189,248,0.7);
 }
+
+.skill-card p {
+  color: #cbd5e1;
+  margin: 8px 0;
+  font-size: 16px;
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+.skill-card:hover {
+  transform: translateY(-12px) scale(1.05);
+  box-shadow: 0 18px 40px rgba(56,189,248,0.45);
+  border-color: var(--accent2);
+}
+
+.skill-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(56,189,248,0.2), transparent 70%);
+  transform: rotate(25deg);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.skill-card:hover::before {
+  opacity: 1;
+}
+
+.skill-card i {
+  font-size: 28px;
+  color: var(--accent2);
+  margin-bottom: 12px;
+  display: inline-block;
+  transition: transform 0.4s ease;
+}
+
+.skill-card:hover i {
+  transform: scale(1.2);
+}
+
 
 .projects-grid{
 display:grid;
@@ -220,11 +278,35 @@ gap:25px;
 }
 
 .project-card{
-background:linear-gradient(145deg,#0f172a,#020617);
+ background: rgba(15, 23, 42, 0.7);
+backdrop-filter: blur(12px);
 border:1px solid #1e293b;
 padding:30px;
 border-radius:16px;
 transition:.35s;
+position: relative;
+overflow: hidden;
+
+
+}
+
+.project-card::after {
+  content: "View Details";
+  cursor: pointer;
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  right: 0;
+  background: var(--accent);
+  color: #020617;
+  padding: 10px;
+  text-align: center;
+  transition: 0.4s;
+}
+
+
+.project-card:hover::after {
+  bottom: 0;
 }
 
 .project-card:hover{
@@ -233,12 +315,39 @@ box-shadow:0 15px 35px rgba(0,0,0,.6);
 border-color:var(--accent);
 }
 
-.github-graph{
-margin-top:40px;
-width:100%;
-max-width:900px;
-border-radius:10px;
-border:1px solid #1e293b;
+/* GitHub Activity Section */
+#github {
+  padding: 80px 10%;
+  text-align: center;
+  background: rgba(15, 23, 42, 0.7); /* semi-transparent dark overlay */
+  backdrop-filter: blur(12px);        /* glassmorphism effect */
+  border-radius: 20px;
+  border: 1px solid var(--accent);
+  box-shadow: 0 12px 30px rgba(56,189,248,0.25);
+  margin-top: 60px;
+}
+
+#github h2 {
+  font-size: 36px;
+  margin-bottom: 30px;
+  color: var(--accent);
+  font-weight: 600;
+  text-shadow: 0 0 15px rgba(56,189,248,0.6);
+}
+
+.github-graph {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 900px;
+  border-radius: 16px;
+  border: 2px solid var(--accent);
+  box-shadow: 0 8px 25px rgba(56,189,248,0.4);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.github-graph:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 35px rgba(56,189,248,0.6);
 }
 
 footer{
@@ -259,4 +368,14 @@ text-align:center;
 margin-top:40px;
 }
 
+}
+
+#typing::after {
+  content: "|";
+  animation: blink 0.7s infinite;
+  color: var(--accent);
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
 }
